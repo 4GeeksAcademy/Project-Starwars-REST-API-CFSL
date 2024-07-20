@@ -1,15 +1,29 @@
-import React from "react";
-import rigoImage from "../../img/rigo-baby.jpg";
+import React, { useContext } from "react";
 import "../../styles/home.css";
+import { Context } from "../store/appContext";
+import { CardPeople } from "../component/cardPeople.jsx";
+import { CardPlanets } from "../component/cardPlanets.jsx";
+import { CardStarships} from "../component/cardStarships.jsx"
 
-export const Home = () => (
-	<div className="text-center mt-5">
-		<h1>Hello Rigo!</h1>
-		<p>
-			<img src={rigoImage} />
-		</p>
-		<a href="#" className="btn btn-success">
-			If you see this green button, bootstrap is working
-		</a>
-	</div>
-);
+export const Home = () => {
+
+	const {store, actions}=useContext(Context);
+
+	return(
+		<div>
+			<h1 className="m-3" style={{color:"red"}}>Characters</h1>
+			<div className="container-fluid d-flex p-0" style={{overflowX:"scroll"}}>
+				{store.people?.map(el => <CardPeople key={el.uid} name={el.name} uid={el.uid} /> )}
+			</div>
+			<h1 className="m-3" style={{color:"red"}}>Planets</h1>
+			<div className="container-fluid d-flex p-0" style={{overflowX:"scroll"}}>
+				{store.planets?.map(el => <CardPlanets key={el.uid} name={el.name} uid={el.uid} /> )}
+			</div>
+			<h1 className="m-3" style={{color:"red"}}>Vehicles</h1>
+			<div className="container-fluid d-flex p-0" style={{overflowX:"scroll"}}>
+				{store.starships?.map(el => <CardStarships key={el.uid} name={el.name} uid={el.uid} /> )}
+			</div>
+		</div>
+	);
+};
+
